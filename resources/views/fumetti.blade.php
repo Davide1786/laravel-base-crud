@@ -16,10 +16,10 @@
     </div>
 @endsection
 
-<style>
+{{-- <style>
     .copertina {
         width: 250px;
         height: 400px;
         object-fit: cover;
     }
-</style>
+</style> --}}
