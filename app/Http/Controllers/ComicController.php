@@ -22,9 +22,9 @@ class ComicController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create() // ci ritorna il form vuoto
     {
-        //
+        return view('comics.create');
     }
 
     /**
@@ -33,9 +33,21 @@ class ComicController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) // salva tutti i dati inseriti all'interno del form 
     {
-        //
+        $data = $request->all();
+
+        $request->validate([
+            'title' => 'required|unique:comics|max:50',
+            'price' => 'required|integer|min:0',
+           
+        ]);
+
+        $new_comics = new Comic();
+        $new_comics->fill($data);
+        $new_comics->save();
+
+        return redirect()->route('comics.index');
     }
 
     /**
@@ -44,9 +56,15 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Comic $comic)
     {
-        //
+        // dd($comic);
+        return view('comics.show', compact('comic'));
+
+        // altro metodo: inserire parametro id nella show e utilizzare il seguente cod
+        // $dettaglio_comic = Comic::find($id);
+        // echo $dettaglio_comic['description'];
+        
     }
 
     /**
@@ -55,9 +73,17 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+
+    // PARTE UPDATE
+    public function edit($id) // ci ritorna il form compilato
     {
-        //
+        $comic = Comic::findOrFail($id);
+        // il findOrFail ci fa l'if automaticamente
+        // if($comic) {
+        //     return view('comics.edit', compact('comic'));
+        // }
+        // abort(404);
+        return view('comics.edit', compact('comic'));
     }
 
     /**
@@ -67,9 +93,12 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Comic $comic) // inserisce tutti i file all interno del database
     {
-        //
+        $data = $request->all();
+        $comic->update($data);
+        return redirect()->route('comics.show', $comic['id']);
+
     }
 
     /**
@@ -78,8 +107,9 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comic $comic)
     {
-        //
+        $comic->delete();
+        return redirect()->route('comics.index');
     }
 }
