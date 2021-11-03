@@ -24,6 +24,7 @@ class CreateComicsTable extends Migration
             $table->string('type', 30);
             $table->timestamps();
         });
+       
     }
 
     /**

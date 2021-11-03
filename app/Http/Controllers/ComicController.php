@@ -39,7 +39,10 @@ class ComicController extends Controller
 
         $request->validate([
             'title' => 'required|unique:comics|max:50',
+            'series' => 'required|max:100',
+            'type' => 'required|max:30',
             'price' => 'required|integer|min:0',
+            // 'sale_date' => ['date_format:m/g/Y']
            
         ]);
 

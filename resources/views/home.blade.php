@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="container">
-        <h1>Ciao Davide, sono la Home</h1>
+        <div class="row">
+            <div class="col-12">
+                <h1>Benvenuto sul sito più grande dei fumetti!</h1>
+              
+            </div>
+        </div>
     </div>
 @endsection

@@ -18,6 +18,12 @@ Route::get('/', function () {
     return view('home');
 })->name('homepage');
 
+// Route::get('/fumetti', function () {
+//     return view('fumetti');
+// })->name('fumetti');
+
 
 // richiamo tutte le rotte del ComicController
 Route::resource('/comics', 'ComicController');
+
+Route::get('/fumetti', 'MainController@comic')->name('fumetti');
