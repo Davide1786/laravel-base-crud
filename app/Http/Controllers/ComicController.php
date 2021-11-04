@@ -42,7 +42,7 @@ class ComicController extends Controller
             'series' => 'required|max:100',
             'type' => 'required|max:30',
             'price' => 'required|integer|min:0',
-            // 'sale_date' => ['date_format:m/g/Y']
+            'sale_date' => ['date_format:Y/m/d']
            
         ]);
 
